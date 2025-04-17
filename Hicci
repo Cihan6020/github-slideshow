@@ -1,0 +1,47 @@
+class Benutzer:
+    def __init__(self, name, saldo):
+        self.name = name
+        self.saldo = saldo
+
+    def senden(self, betrag, empfänger):
+        if betrag > self.saldo:
+            print(f"{self.name} hat nicht genug Guthaben.")
+            return False
+        self.saldo -= betrag
+        empfänger.empfangen(betrag)
+        print(f"{self.name} hat {betrag}€ an {empfänger.name} gesendet.")
+        return True
+
+    def empfangen(self, betrag):
+        self.saldo += betrag
+
+    def anzeigen(self):
+        print(f"{self.name} hat {self.saldo}€ Guthaben.")
+
+
+# Zahlungsarten (Simulation)
+zahlungsarten = ["PayPal", "Sofortüberweisung", "Kreditkarte", "Banküberweisung (Instant)", "Krypto"]
+
+def zeige_zahlungsarten():
+    print("Verfügbare Zahlungsarten:")
+    for art in zahlungsarten:
+        print(f"- {art}")
+
+
+# Beispielnutzer
+alice = Benutzer("Alice", 500)
+bob = Benutzer("Bob", 150)
+
+# Ablauf
+zeige_zahlungsarten()
+print()
+alice.anzeigen()
+bob.anzeigen()
+print()
+
+# Zahlung simulieren
+alice.senden(100, bob)
+
+print()
+alice.anzeigen()
+bob.anzeigen()
